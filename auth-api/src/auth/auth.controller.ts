@@ -1,10 +1,13 @@
 import { Body, Controller, Post } from '@nestjs/common';
 import { SignInDTO, SignUpDTO } from './dtos/auth.dto';
 import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { AuthService } from './auth.service';
 
 @ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
+  constructor(private authService: AuthService) {}
+
   @Post('signup')
   @ApiOperation({
     summary: 'Realiza o cadastro de um usuário.',
@@ -21,9 +24,7 @@ export class AuthController {
     type: String,
   })
   async signUp(@Body() data: SignUpDTO) {
-    console.log(data);
-
-    return data;
+    return await this.authService.signUp(data);
   }
 
   @Post('signin')
@@ -42,8 +43,6 @@ export class AuthController {
     type: String,
   })
   async signIn(@Body() data: SignInDTO) {
-    console.log(data);
-
-    return data;
+    return await this.authService.signIn(data);
   }
 }

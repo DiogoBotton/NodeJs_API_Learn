@@ -75,3 +75,46 @@ Para iniciar a aplicação em modo de desenvolvimento basta digitar no prompt de
 ```
 
 Caso for npm, yarn ou outro gerenciador de pacote, basta apenas trocar o "pnpm" pelo gerenciador escolhido por você.
+
+## Criando integração com o Prisma
+
+O Prisma é uma ORM (Object-Relacional Mapper) de banco de dados para NodeJs e Typescript.
+
+Para instalar digite o seguinte comando:
+
+```bash
+    pnpm install prisma @prisma/client
+```
+
+Para criar as configurações iniciais do prisma:
+
+```bash
+    npx prisma init
+```
+
+É necessário criar todas as entidades dentro do arquivo `prisma/schema.prisma`, exemplo:
+
+```prisma
+    model User {
+      id Int @id @default(autoincrement())
+      name String
+      email String @unique
+      password String
+    }
+```
+
+A URL do banco de dados é definida no `.env` e adquirida através do arquivo `prisma.config.ts` para realização da aplicação das migrations.
+
+Em seguida, para **criar as migrations** digite o comando:
+
+```bash
+    npx prisma migrate dev --name nome_da_migration
+```
+
+Com este comando será criada as migrations e aplicadas no banco de dados, assim como, o banco será criado caso ainda não exista.
+
+Além disso, será necessário que seja gerado o PrismaClient a partir do comando:
+
+```bash
+    npx prisma generate
+```
