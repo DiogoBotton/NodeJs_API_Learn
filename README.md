@@ -133,3 +133,18 @@ generator client {
 ```
 
 O client gerado não é versionado, há uma linha no .gitignore que ignora-o.
+
+### Autenticação e criptografia de senhas
+
+Para realizar a criptografia de senhas e autenticação é necessário instalar as seguintes bibliotecas:
+
+```bash
+    pnpm install bcrypt
+    pnpm install -D @types/bcrypt
+```
+
+Para realizar a autenticação com JWT, instale as seguintes bibliotecas:
+
+```bash
+    pnpm install @nestjs/jwt
+```

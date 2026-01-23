@@ -1,7 +1,20 @@
-import { Body, Controller, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Post,
+  Request,
+  UseGuards,
+} from '@nestjs/common';
 import { SignInDTO, SignUpDTO } from './dtos/auth.dto';
-import { ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import {
+  ApiBearerAuth,
+  ApiOperation,
+  ApiResponse,
+  ApiTags,
+} from '@nestjs/swagger';
 import { AuthService } from './auth.service';
+import { AuthGuard } from './guards/auth.guard';
 
 @ApiTags('Auth')
 @Controller('auth')
@@ -44,5 +57,21 @@ export class AuthController {
   })
   async signIn(@Body() data: SignInDTO) {
     return await this.authService.signIn(data);
+  }
+
+  @Get('me')
+  @UseGuards(AuthGuard)
+  @ApiBearerAuth('jwt')
+  @ApiOperation({
+    summary: 'Retorna o usuário logado.',
+    description: 'Retorna o usuário logado.',
+  })
+  @ApiResponse({
+    status: 500,
+    description: 'Ocorreu um erro interno.',
+    type: String,
+  })
+  me(@Request() request) {
+    return request.user;
   }
 }
