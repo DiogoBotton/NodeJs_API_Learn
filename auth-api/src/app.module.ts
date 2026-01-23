@@ -5,9 +5,12 @@ import { ConfigModule } from '@nestjs/config';
 
 @Module({
   imports: [
+    // Isto serve para realizar a importação das variáveis de ambiente (.env)
     ConfigModule.forRoot({
       isGlobal: true,
     }),
+
+    // Importação dos módulos
     AuthModule,
     PrismaModule,
   ],

@@ -4,20 +4,22 @@
 // Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
 // Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
 
-// TODO: Voltar para o que era antes (abaixo)
-// generator client {
-//   provider = "prisma-client"
-//   output   = "../generated/prisma"
-// }
-
 generator client {
-  provider = "prisma-client-js"
+  provider = "prisma-client"
+  output   = "../generated/prisma"
+  moduleFormat = "cjs"
 }
+
+// Também é possível gerar o client desta forma abaixo (ficará na pasta padrão node_modules/@prisma/client):
+// generator client {
+//   provider = "prisma-client-js"
+// }
 
 datasource db {
   provider = "postgresql"
 }
 
+// Entidades do banco de dados
 model User {
   id Int @id @default(autoincrement())
   name String

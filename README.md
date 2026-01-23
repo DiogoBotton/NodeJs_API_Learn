@@ -2,9 +2,10 @@
 
 O NestJs é um framework para criação de APIs com NodeJs. Por padrão é utilizado o Typescript.
 
-**Vídeo para apoio:**
+**Conteúdos para apoio:**
 
 - [Criando API com NestJS, Prisma e Postgres](https://www.youtube.com/watch?v=K_3b6SlssMc)
+- [Prisma Docs](https://www.prisma.io/docs/guides/nestjs)
 
 ### Passo a passo
 
@@ -113,8 +114,22 @@ Em seguida, para **criar as migrations** digite o comando:
 
 Com este comando será criada as migrations e aplicadas no banco de dados, assim como, o banco será criado caso ainda não exista.
 
-Além disso, será necessário que seja gerado o PrismaClient a partir do comando:
+### Configuração do PrismaClient
+
+Baseado na documentação atual do Prisma é necessário que seja definido em qual formato será gerado o client do prisma no arquivo `prisma/schema.prisma` da seguinte forma:
+
+```prisma
+generator client {
+  provider = "prisma-client"
+  output   = "../generated/prisma" // Define a saída do PrismaClient
+  moduleFormat = "cjs" // Força o Prisma a gerar um módulo CommonJS em vez de ESM
+}
+```
+
+É possível gerar o PrismaClient a partir do comando:
 
 ```bash
     npx prisma generate
 ```
+
+O client gerado não é versionado, há uma linha no .gitignore que ignora-o.
