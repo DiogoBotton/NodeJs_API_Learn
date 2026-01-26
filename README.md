@@ -114,6 +114,12 @@ Em seguida, para **criar as migrations** digite o comando:
 
 Com este comando será criada as migrations e aplicadas no banco de dados, assim como, o banco será criado caso ainda não exista.
 
+Em casos de precisar apenas aplicar as migrations, rode o seguinte comando:
+
+```bash
+    npx prisma migrate deploy
+```
+
 ### Configuração do PrismaClient
 
 Baseado na documentação atual do Prisma é necessário que seja definido em qual formato será gerado o client do prisma no arquivo `prisma/schema.prisma` da seguinte forma:
